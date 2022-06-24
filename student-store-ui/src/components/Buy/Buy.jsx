@@ -1,10 +1,10 @@
-import * as React from "react"
-import "./Buy.css"
+import * as React from "react";
+import "./Buy.css";
 
 export default function Buy() {
-    return (
-        <div className="buy">
-            <p>Buy</p>
-        </div>
-    )
+  return (
+    <div className="buy">
+      <p>Buy Now</p>
+    </div>
+  );
 }
