@@ -1,10 +1,7 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import "./Buy.css";
 
-export default function Buy() {
-  return (
-    <div className="buy">
-      <p>Buy Now</p>
-    </div>
-  );
+export default function Buy(props) {
+  return <div className="buy"></div>;
 }

@@ -12,15 +12,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import { NavLink } from "react-router-dom";
-
 const api = axios.create({
   url: `https://codepath-store-api.herokuapp.com/store`,
 });
 
 export default function App() {
-  let links = ["/", "about", "contact", "buy"];
-  let names = ["home", "about", "contact", "buy"];
+  let links = ["/", "/about", "/contact", "/buy"];
   const [product, setProduct] = useState();
 
   useEffect(() => {
@@ -29,20 +26,19 @@ export default function App() {
       console.log(res.data.products);
     });
   }, []);
-  console.log(product);
+
   return (
     <div className="app">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="buy" element={<Buy />} />
-        </Routes>
         <main>
-          <Navbar />
+          <Navbar links={links} />
           <Sidebar />
-          <Home product={product} />
+          <Routes>
+            <Route path="/" element={<Home product={product} />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="buy" element={<Buy />} />
+          </Routes>
         </main>
       </BrowserRouter>
     </div>

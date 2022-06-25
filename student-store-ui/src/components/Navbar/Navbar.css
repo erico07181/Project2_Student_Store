@@ -1,0 +1,32 @@
+.navbar {
+  width: 100%;
+  max-width: 100vw;
+  background: #9e68ad;
+  color: var(--pure-white);
+  height: 70px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  list-style-type: none;
+  margin-left: auto;
+  flex: 1;
+  max-width: 650px;
+}
+
+.navbar .content .logo {
+  width: 100px;
+  margin-right: 50px;
+}
+
+.navbar .content .socials {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  margin-right: 50px;
+}

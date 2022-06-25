@@ -1,6 +1,18 @@
 .media {
-  width: 250px;
   height: 250px;
-  display: flex;
-  justify-content: center;
+  width: 100%;
+}
+
+.prod-image {
+  height: 250px;
+  width: 248px;
+}
+
+.prod-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.prod-price {
+  font-size: 14px;
 }

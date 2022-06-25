@@ -9,12 +9,22 @@ import Home from "../Home/Home";
 export default function Navbar(props) {
   return (
     <nav className="navbar">
-      <ul className="links">
-        {/* <Home link={props.links[0]} name={props.names[0]} />
-        <About link={props.links[1]} name={props.names[1]} />
-        <Contact link={props.links[2]} name={props.names[2]} />
-        <Buy link={props.links[3]} name={props.names[3]} /> */}
-      </ul>
+      <div className="content">
+        <div className="logo">
+          <a href="/">
+            <img
+              src="https://codepath-student-store-demo.surge.sh/assets/codepath.f1b3e41a.svg"
+              alt="codepath logo"
+            />
+          </a>
+        </div>
+
+        <ul className="links">
+          <Link to={props.links[1]}>About Us </Link>
+          <Link to={props.links[2]}>Contact Us </Link>
+          <Link to={props.links[3]}>Buy Now </Link>
+        </ul>
+      </div>
     </nav>
   );
 }
