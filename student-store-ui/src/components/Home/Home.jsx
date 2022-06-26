@@ -8,7 +8,7 @@ export default function Home(props) {
     <div className="home">
       <div id="Buy" className="product-grid">
         <div className="content">
-          <h1>Best Selling Products</h1>
+          <h1>Best Selling Products!</h1>
           <ProductGrid props={props.product} />
         </div>
       </div>

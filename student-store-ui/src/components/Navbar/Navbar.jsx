@@ -20,6 +20,7 @@ export default function Navbar(props) {
         </div>
 
         <ul className="links">
+          <Link to={props.links[0]}>Home</Link>
           <Link to={props.links[1]}>About Us </Link>
           <Link to={props.links[2]}>Contact Us </Link>
           <Link to={props.links[3]}>Buy Now </Link>

@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Hero from "../Hero/Hero";
+import Subnav from "../Subnav/Subnav";
+import ProductGrid from "../Product Grid/ProductGrid";
 
 const api = axios.create({
   url: `https://codepath-store-api.herokuapp.com/store`,
@@ -23,7 +26,6 @@ export default function App() {
   useEffect(() => {
     axios.get(`https://codepath-store-api.herokuapp.com/store`).then((res) => {
       setProduct(res.data.products);
-      console.log(res.data.products);
     });
   }, []);
 
@@ -32,7 +34,9 @@ export default function App() {
       <BrowserRouter>
         <main>
           <Navbar links={links} />
-          <Sidebar />
+          <Hero />
+          <Subnav data={product} />
+
           <Routes>
             <Route path="/" element={<Home product={product} />} />
             <Route path="about" element={<About />} />
