@@ -2,6 +2,9 @@ import * as React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import ProductGrid from "../Product Grid/ProductGrid";
+import About from "../About/About";
+import Contact from "../Contact/Contact";
+import Buy from "../Buy/Buy";
 
 export default function Home(props) {
   return (
@@ -16,6 +19,13 @@ export default function Home(props) {
           />
         </div>
       </div>
+      <About />
+      <Contact />
+      <Buy
+        props={props}
+        increaseAmountAt={props.increaseAmountAt}
+        decreaseAmountAt={props.decreaseAmountAt}
+      />
     </div>
   );
 }
