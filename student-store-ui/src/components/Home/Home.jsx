@@ -9,7 +9,11 @@ export default function Home(props) {
       <div id="Buy" className="product-grid">
         <div className="content">
           <h1>Best Selling Products!</h1>
-          <ProductGrid props={props.product} />
+          <ProductGrid
+            props={props.product}
+            increaseAmountAt={props.increaseAmountAt}
+            decreaseAmountAt={props.decreaseAmountAt}
+          />
         </div>
       </div>
     </div>
