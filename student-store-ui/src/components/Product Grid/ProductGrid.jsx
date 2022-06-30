@@ -5,12 +5,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useMountEffect } from "react";
 
-export default function ProductGrid(props) {
+export default function ProductGrid({
+  shoppingCart,
+  products,
+  handleAddItem,
+  handleRemoveItem,
+}) {
   const [filtData, setFiltData] = useState([]);
 
   const handleFilter = (evt) => {
     const query = evt.target.value;
-    const newFilt = props.props.filter((value) => {
+    const newFilt = products.filter((value) => {
       return value.name.toLowerCase().includes(query.toLowerCase());
     });
     setFiltData(newFilt);
@@ -30,14 +35,14 @@ export default function ProductGrid(props) {
           <i className="material-icons">search</i>
         </div>
         <div className="prod-grid">
-          {props.props?.map((prod, i) => {
+          {products?.map((prod) => {
             return (
               <ProductCard
-                props={prod}
-                key={i}
-                i={i}
-                increaseAmountAt={props.increaseAmountAt}
-                decreaseAmountAt={props.decreaseAmountAt}
+                key={prod.id}
+                products={prod}
+                handleAddItemToCart={handleAddItem}
+                handleRemoveItemFromCart={handleRemoveItem}
+                shoppingCart={shoppingCart}
               />
             );
           })}
@@ -54,12 +59,19 @@ export default function ProductGrid(props) {
             placeholder="Search"
             onChange={handleFilter}
           ></input>
-
           <i className="material-icons">search</i>
         </div>
         <div className="prod-grid">
           {filtData.map((prod, i) => {
-            return <ProductCard props={prod} key={i} />;
+            return (
+              <ProductCard
+                key={prod.id}
+                products={prod}
+                handleAddItemToCart={handleAddItem}
+                handleRemoveItemFromCart={handleRemoveItem}
+                shoppingCart={shoppingCart}
+              />
+            );
           })}
         </div>
       </div>

@@ -8,81 +8,94 @@ import Home from "../Home/Home";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+
 import Hero from "../Hero/Hero";
 import Subnav from "../Subnav/Subnav";
 
-const api = axios.create({
-  url: `https://codepath-store-api.herokuapp.com/store`,
-});
+const url = `http://localhost:3001/store`;
 
 export default function App() {
   let links = ["/", "/about", "/contact", "/buy"];
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState([]);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [shoppingCartPrice, setShoppingCartPrice] = useState(0);
+  const [shoppingCart, setShoppingCart] = useState([]);
+
+  //Error handling
+  // useEffect(() => {
+  //   console.log(product);
+  // }, [product]);
 
   function handleOnToggle() {
     setIsOpen(!isOpen);
   }
 
-  useEffect(() => {
-    axios.get(`https://codepath-store-api.herokuapp.com/store`).then((res) => {
-      setProduct(res.data.products);
-    });
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`${url}`);
+      console.log(response.data.products);
+      setProduct(response.data.products);
+    } catch (e) {
+      console.log("API call error", e);
+    }
   }, []);
 
-  function increaseAmountAt(i) {
-    if (product[i].amount > 99) {
-      return;
+  const handleAddItem = (productId, price, name) => {
+    setShoppingCartPrice(shoppingCartPrice + price);
+    for (let i = 0; i < shoppingCart.length; i++) {
+      if (shoppingCart[i].productId === productId) {
+        shoppingCart[i].quantity++;
+        setShoppingCart([...shoppingCart]);
+        return;
+      }
     }
-    var prodNew = [...product];
-    prodNew[i].amount += 1;
-    setProduct(prodNew);
-  }
+    setShoppingCart([...shoppingCart, { productId, quantity: 1, price, name }]);
+  };
 
-  function decreaseAmountAt(i) {
-    if (product[i].amount === 0) {
-      return;
+  const handleRemoveItem = (productId, price) => {
+    for (let i = 0; i < shoppingCart.length; i++) {
+      if (shoppingCart[i].productId === productId) {
+        if (shoppingCart[i].quantity === 1) {
+          shoppingCart.splice(i, 1);
+        } else {
+          shoppingCart[i].quantity--;
+        }
+        setShoppingCartPrice(shoppingCartPrice - price);
+        setShoppingCart([...shoppingCart]);
+        return;
+      }
     }
-    var prodNew = [...product];
-    prodNew[i].amount -= 1;
-    setProduct(prodNew);
-  }
-
-  console.log(product);
+  };
 
   return (
     <div className="app">
-      <BrowserRouter>
-        <main>
+      <main>
+        <BrowserRouter>
+          <Navbar links={links} />
+          <Hero />
           <Sidebar
             handleOnToggle={handleOnToggle}
             isOpen={isOpen}
             products={product}
             setIsOpen={setIsOpen}
+            shoppingCart={shoppingCart}
           />
-          <Navbar links={links} />
-          <Hero />
-          <Subnav data={product} />
-
           <Routes>
             <Route
               path="/"
               element={
                 <Home
-                  product={product}
-                  increaseAmountAt={increaseAmountAt}
-                  decreaseAmountAt={decreaseAmountAt}
+                  products={product}
+                  handleAddItem={handleAddItem}
+                  handleRemoveItem={handleRemoveItem}
+                  shoppingCart={shoppingCart}
                 />
               }
             />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="buy" element={<Buy />} />
           </Routes>
-        </main>
-      </BrowserRouter>
+        </BrowserRouter>
+      </main>
     </div>
   );
 }

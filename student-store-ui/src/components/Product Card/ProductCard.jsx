@@ -1,51 +1,71 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./ProductCard.css";
-import StarIcon from "@mui/icons-material/Star";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 
-export default function ProductCard(props) {
-  const [total, setTotal] = React.useState(props.props.amount);
-
+const ProductCard = ({
+  key,
+  products,
+  handleAddItemToCart,
+  handleRemoveItemFromCart,
+  showDescription,
+  setShowDescription,
+  shoppingCart,
+}) => {
   return (
-    <div className="prod-card">
-      <div className="media">
-        <a href={"/products/" + props.props.id}>
-          <img className="prod-image" src={props.props.image} />
-        </a>
+    <div
+      className="product-card"
+      style={{
+        height: showDescription ? "400px" : "350px",
+        width: showDescription ? "500px" : "350px",
+      }}
+    >
+      <div className="image-container">
+        <Link to={`/products/${products.id}`}>
+          <img className="product-image" src={products.image} />
+        </Link>
       </div>
-      <div className="product-and-add">
-        <div className="product-name">{props.props.name}</div>
-        <div className="add-and-remove">
-          <IndeterminateCheckBoxIcon
-            className="remove-item"
-            style={{ color: props.props.amount == 0 ? "gray" : "darkred" }}
-            onClick={() => {
-              props.decreaseAmountAt(props.i);
-              setTotal(props.props.amount);
-            }}
-          />
-          <span className={total == 0 ? "amount hidden" : "amount"}>
-            {total}
-          </span>
-          <AddBoxIcon
-            className="add-item"
-            style={{ color: total > 99 ? "gray" : "darkgreen" }}
-            onClick={() => {
-              props.increaseAmountAt(props.i);
-              setTotal(props.props.amount);
-              console.log(total);
-            }}
-          />
-        </div>
-      </div>
-      <div className="prod-info">
+      <div className="product-info">
         <div className="main-info">
-          <h1 className="prod-name">{props.props.name}</h1>
-          <p className="prod-price">{props.props.price}</p>
+          <div className="product-name">{products.name}</div>
+          <div className="product-price">{products.price}</div>
         </div>
+        <div className="actions">
+          <div className="buttons">
+            <button
+              className="add"
+              onClick={() => {
+                handleAddItemToCart(products.id, products.price, products.name);
+              }}
+            >
+              <i className="material-icons">add</i>
+            </button>
+            <button
+              className="remove"
+              onClick={() => {
+                handleRemoveItemFromCart(products.id, products.price);
+              }}
+            >
+              <i className="material-icons">remove</i>
+            </button>
+          </div>
+
+          {shoppingCart?.find((item) => item.productId === products.id) && (
+            <span className="added-items">
+              {
+                shoppingCart.find((item) => item.productId === products.id)
+                  .quantity
+              }
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="desc">
+        {showDescription && (
+          <div className="showDescription">{products.description}</div>
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default ProductCard;

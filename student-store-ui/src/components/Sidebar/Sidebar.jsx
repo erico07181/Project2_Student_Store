@@ -18,8 +18,6 @@ export default function Sidebar({
   setIsOpen,
   cartHasItems,
 }) {
-  console.log(products);
-
   if (products == null) {
     return (
       <section className={isOpen ? "sidebar" : "sidebar closed"}>
@@ -77,21 +75,12 @@ export default function Sidebar({
             />
           </button>
           <div className="other">
-            <div className="shoppping">
-              <h3
-                className={
-                  isOpen ? "shopping-cart-title" : "shopping-cart-title hidden"
-                }
-                style={{ color: "white" }}
-              >
-                Shopping Cart
-              </h3>
-            </div>
+            <div className="shoppping"></div>
             <ShoppingCart
               isOpen={isOpen}
               products={products}
               setIsOpen={setIsOpen}
-              cartHasItems={cartHasItems}
+              shoppingCart={shoppingCart}
             />
           </div>
           <div className="cart-icons">

@@ -1,117 +1,94 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 
-import "./ShoppingCart.css";
-import {
-  Table,
-  TableContainer,
-  TableHead,
-  TableCell,
-  TableBody,
-  TableRow,
-} from "@mui/material";
+const round = (num) => {
+  return Number(Math.round(num + "e2") + "e-2");
+};
 
-export default function ShoppingCart(props) {
-  var formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-  var totalPrice = 0;
-  const TAXES = 0.0725;
-  var showCart = false;
-
+const ShoppingCart = ({ shoppingCart }) => {
   return (
-    <div
-      className={
-        props.isOpen ? "shopping-cart-elem" : "shopping-cart-elem hidden"
-      }
-    >
+    <div className="shopping-cart">
       <div
-        className={
-          true ? "shopping-cart-wrapper" : "shopping-cart-wrapper hidden" // FIXME: logic for showing cart
-        }
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <TableContainer className="shopping-cart-table">
-          <Table
-            sx={{ minWidth: "60%" }}
-            size="small"
-            aria-label="a dense table"
-          >
-            <TableHead>
-              <TableRow
-                key="018409175"
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Product
-                </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Amount
-                </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Price
-                </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Total
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.products.map((item) => {
-                if (item.amount > 0) {
-                  totalPrice += item.amount * item.price;
-                  showCart = true;
-                  return (
-                    <TableRow
-                      key={item.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="center">{item.name}</TableCell>
-                      <TableCell align="center">{item.amount}</TableCell>
-                      <TableCell align="center">
-                        {formatter.format(item.price)}
-                      </TableCell>
-                      <TableCell align="center">
-                        {formatter.format(item.amount * item.price)}
-                      </TableCell>
-                    </TableRow>
-                  );
-                }
-              })}
-              <TableRow>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Subtotal
-                </TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  {formatter.format(totalPrice)}
-                </TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Taxes and Fees
-                </TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  {formatter.format(totalPrice * TAXES)}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  Total
-                </TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold" }}>
-                  {formatter.format(totalPrice * (TAXES + 1))}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <h1>Shopping Cart</h1>{" "}
+        <i className="material-icons md-48">add_shopping_cart</i>
       </div>
+      {shoppingCart.length === 0 ? (
+        <div style={{ fontSize: "1rem", margin: 20 }}>
+          No items added to cart yet. Start shopping now!
+        </div>
+      ) : (
+        <div>
+          <Table shoppingCart={shoppingCart} />
+          <CostSummary shoppingCart={shoppingCart} />
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default ShoppingCart;
+
+const Table = ({ shoppingCart }) => {
+  return (
+    <table className="CartTable">
+      <thead>
+        <tr className="header">
+          <th className="flex-2">Name</th>
+          <th className="center">Quantity</th>
+          <th className="center">Unit Price</th>
+          <th className="center">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        {shoppingCart.map((item, i) => {
+          return (
+            <tr className="product-row" key={i}>
+              <td className="flex-2 cart-product-name">{item.name}</td>
+              <td className="center cart-product-quantity">{item.quantity}</td>
+              <td className="center cart-product-price">${item.price}</td>
+              <td className="center cart-product-subtotal">
+                ${round(item.price * item.quantity)}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
+const CostSummary = ({ shoppingCart }) => {
+  const [subtotal, setSubtotal] = React.useState(0);
+
+  useEffect(() => {
+    let total = 0;
+    shoppingCart.forEach((item) => {
+      total += item.price;
+    });
+
+    setSubtotal(total);
+  }, []);
+
+  return (
+    <table className="summary-container">
+      <tr className="summary-row">
+        <td>Subtotal</td>
+        <td>${subtotal}</td>
+      </tr>
+      <tr className="summary-row">
+        <td>Taxes and Fees</td>
+        <td>${round(subtotal * 0.875)}</td>
+      </tr>
+      <tr className="summary-row">
+        <td>Total</td>
+        <td>${round(subtotal + subtotal * 0.875)}</td>
+      </tr>
+    </table>
+  );
+};
