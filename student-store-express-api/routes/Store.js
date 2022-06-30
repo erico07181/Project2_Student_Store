@@ -4,8 +4,8 @@ const Store = require("../models/Store");
 
 router.get("/", async (req, res, next) => {
   try {
-    const result = Store.getProducts();
-    res.status(200).json({ result });
+    const products = Store.getProducts();
+    res.status(200).json({ products });
   } catch (err) {
     console.log("oops");
   }
