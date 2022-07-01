@@ -2,21 +2,20 @@ import * as React from "react";
 import "./Sidebar.css";
 
 import { DoubleArrowOutlined } from "@material-ui/icons";
-// import AddCardIcon from "@mui/icons-material/AddCard";
-// import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
-import { ShoppingBasket } from "@material-ui/icons";
+
 import ShoppingCart from "../Shopping Cart/ShoppingCart";
+import CheckoutForm from "../CheckoutForm/CheckoutForm";
 
 export default function Sidebar({
   isOpen = false,
   shoppingCart,
   products,
   checkoutForm,
-  handleOnCheckoutFormChange,
-  handleOnSubmitCheckoutForm,
+  handleCheckoutFormChange,
+  handleSubmitCheckoutForm,
   handleOnToggle = () => {},
   setIsOpen,
-  cartHasItems,
+  receipt,
 }) {
   if (products == null) {
     return (
@@ -76,12 +75,27 @@ export default function Sidebar({
           </button>
           <div className="other">
             <div className="shoppping"></div>
-            <ShoppingCart
-              isOpen={isOpen}
-              products={products}
-              setIsOpen={setIsOpen}
-              shoppingCart={shoppingCart}
-            />
+            {!(
+              Array.isArray(shoppingCart) &&
+              shoppingCart.length === 0 &&
+              receipt
+            ) && (
+              <ShoppingCart
+                isOpen={isOpen}
+                products={products}
+                setIsOpen={setIsOpen}
+                shoppingCart={shoppingCart}
+              />
+            )}
+
+            {Array.isArray(shoppingCart) && shoppingCart.length > 0 && (
+              <CheckoutForm
+                shoppingCart={shoppingCart}
+                checkoutForm={checkoutForm}
+                handleCheckoutFormChange={handleCheckoutFormChange}
+                handleSubmitCheckoutForm={handleSubmitCheckoutForm}
+              />
+            )}
           </div>
           <div className="cart-icons">
             <span className="cart-icon icon button">

@@ -21,15 +21,60 @@ export default function App() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [shoppingCartPrice, setShoppingCartPrice] = useState(0);
   const [shoppingCart, setShoppingCart] = useState([]);
+  const [checkoutForm, setCheckoutForm] = React.useState({
+    name: "",
+    email: "",
+    shoppingCart: shoppingCart,
+  });
+  const [receipt, setReceipt] = useState(null);
 
   //Error handling
   // useEffect(() => {
   //   console.log(product);
   // }, [product]);
+  console.log(shoppingCart);
 
   function handleOnToggle() {
     setIsOpen(!isOpen);
   }
+
+  const handleCheckoutFormChange = (name, email, shoppingCart) => {
+    setCheckoutForm({ name, email, shoppingCart });
+  };
+
+  const handleSubmitCheckoutForm = async (checkoutForm, shoppingCart) => {
+    console.log(shoppingCart);
+    try {
+      console.log("here");
+      const res = await axios.post(`${url}`, {
+        checkoutForm: {
+          name: checkoutForm.name,
+          email: checkoutForm.email,
+          shoppingCart: shoppingCart,
+        },
+      });
+      console.log(res);
+      if (res.status != 201) {
+        console.log("error");
+      }
+
+      //setReceipt(res.data.purchase.receipt);
+      // setShoppingCart([]);
+      // setShoppingCartPrice(0);
+      // setCheckoutForm({ name: "", email: "" });
+    } catch (err) {
+      console.log("API dead", err);
+    }
+  };
+
+  const formatShoppingCart = () => {
+    return shoppingCart.map((i) => {
+      return {
+        itemId: i.productId,
+        quantity: i.quantity,
+      };
+    });
+  };
 
   useEffect(async () => {
     try {
@@ -75,11 +120,15 @@ export default function App() {
           <Navbar links={links} />
           <Hero />
           <Sidebar
+            checkoutForm={checkoutForm}
             handleOnToggle={handleOnToggle}
             isOpen={isOpen}
             products={product}
             setIsOpen={setIsOpen}
             shoppingCart={shoppingCart}
+            handleCheckoutFormChange={handleCheckoutFormChange}
+            handleSubmitCheckoutForm={handleSubmitCheckoutForm}
+            receipt={receipt}
           />
           <Routes>
             <Route

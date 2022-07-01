@@ -65,15 +65,17 @@ const Table = ({ shoppingCart }) => {
 
 const CostSummary = ({ shoppingCart }) => {
   const [subtotal, setSubtotal] = React.useState(0);
+  const [quantity, setQuantity] = React.useState(0);
 
   useEffect(() => {
     let total = 0;
+    let quant = 0;
     shoppingCart.forEach((item) => {
-      total += item.price;
+      total += item.price * item.quantity;
     });
 
     setSubtotal(total);
-  }, []);
+  }, [shoppingCart]);
 
   return (
     <table className="summary-container">
