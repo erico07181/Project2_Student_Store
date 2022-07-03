@@ -147,224 +147,39 @@
   ],
   "purchases": [
     {
-      "id": 1
-    },
-    {
-      "id": 2
-    },
-    {
-      "id": 3
-    },
-    {
-      "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
-      "id": 6,
+      "id": 1,
       "name": "enrique",
       "email": "enrique@gmail.com"
     },
     {
-      "id": 7,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 8,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 9,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 10,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 11,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 12,
-      "name": "Giphy_Erico",
-      "email": "erico@salesforce.com"
-    },
-    {
-      "id": 13,
-      "name": "enrique",
-      "email": "enrique@gmail.com"
-    },
-    {
-      "id": 14,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 15,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 16,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 17,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 18,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 19,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 20,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 21,
-      "name": "Paul",
-      "email": "paul@gmail.com"
-    },
-    {
-      "id": 22,
-      "name": "Paul",
-      "email": "paul@gmail.com",
+      "id": 2,
+      "name": "enriqeu",
+      "email": "erico@salesforce.com",
       "shoppingCart": [
         {
+          "productId": 1,
+          "quantity": 1,
+          "price": 0.99,
+          "name": "Rice Krispies"
+        },
+        {
           "productId": 2,
-          "quantity": 4,
+          "quantity": 1,
           "price": 1.5,
           "name": "Flamin Hot Cheetos"
         },
         {
           "productId": 4,
-          "quantity": 5,
+          "quantity": 1,
           "price": 3.25,
           "name": "Coconut Water"
-        },
-        {
-          "productId": 3,
-          "quantity": 3,
-          "price": 2.99,
-          "name": "Cinnamon Rolls"
         }
       ]
     },
     {
-      "id": 23,
-      "name": "Paul",
-      "email": "paul@gmail.com",
-      "shoppingCart": [
-        {
-          "productId": 2,
-          "quantity": 4,
-          "price": 1.5,
-          "name": "Flamin Hot Cheetos"
-        },
-        {
-          "productId": 4,
-          "quantity": 5,
-          "price": 3.25,
-          "name": "Coconut Water"
-        },
-        {
-          "productId": 3,
-          "quantity": 3,
-          "price": 2.99,
-          "name": "Cinnamon Rolls"
-        }
-      ]
-    },
-    {
-      "id": 24,
-      "name": "Paul",
-      "email": "paul@gmail.com",
-      "shoppingCart": [
-        {
-          "productId": 2,
-          "quantity": 4,
-          "price": 1.5,
-          "name": "Flamin Hot Cheetos"
-        },
-        {
-          "productId": 4,
-          "quantity": 5,
-          "price": 3.25,
-          "name": "Coconut Water"
-        },
-        {
-          "productId": 3,
-          "quantity": 3,
-          "price": 2.99,
-          "name": "Cinnamon Rolls"
-        }
-      ]
-    },
-    {
-      "id": 25,
-      "name": "Paul",
-      "email": "paul@gmail.com",
-      "shoppingCart": [
-        {
-          "productId": 2,
-          "quantity": 4,
-          "price": 1.5,
-          "name": "Flamin Hot Cheetos"
-        },
-        {
-          "productId": 4,
-          "quantity": 5,
-          "price": 3.25,
-          "name": "Coconut Water"
-        },
-        {
-          "productId": 3,
-          "quantity": 3,
-          "price": 2.99,
-          "name": "Cinnamon Rolls"
-        }
-      ]
-    },
-    {
-      "id": 26,
-      "name": "Paul",
-      "email": "paul@gmail.com",
-      "shoppingCart": [
-        {
-          "productId": 2,
-          "quantity": 4,
-          "price": 1.5,
-          "name": "Flamin Hot Cheetos"
-        },
-        {
-          "productId": 4,
-          "quantity": 5,
-          "price": 3.25,
-          "name": "Coconut Water"
-        },
-        {
-          "productId": 3,
-          "quantity": 3,
-          "price": 2.99,
-          "name": "Cinnamon Rolls"
-        }
-      ]
+      "id": 3,
+      "name": "enrique",
+      "email": "enrique@gmail.com"
     }
   ]
 }
